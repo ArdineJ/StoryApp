@@ -1,20 +1,22 @@
 # StoryApp
 
-**Halaman Autentitkasi**
- [] Halaman Login
-    [] Email
-    [] Password (disembunyikan)
+## Authentication Pages
+- [x] Login Page
+    - [x] Email
+    - [x] Password (hidden)
 
- [] Halaman Register
-    [] Nama
-    [] Email
-    [] Password (disembunyikan)
+- [x] Register Page
+    - [x] Name
+    - [x] Email
+    - [x] Password (hidden)
 
-[] Membuat CustomView berupa EditText di login atau register dengan ketentuan
-    [] Jika jumlah password kurang dari 8 karakter, menampilkan pesan error secara langsung pada EditText tanpa harus pindah form atau klik tombol dulu.
+## Custom EditText View
+- [x] If the password length is less than 8 characters, display an error message directly within the EditText without needing to switch forms or click a button.
 
-[] Menyimpan data sesi dan token di preferences
-    - jika sdh login -> ke homepage
-    - jika belum login -> ke login page
+## Data Storage and Preferences
+- [x] Save session data and token in preferences.
+    - [x] If already logged in, redirect to the homepage.
+    - [x] If not logged in, redirect to the login page.
 
-[] Fitur logout
+## Logout Feature
+- [x] Implement a logout feature.
