@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="message_welcome_page">Want to learn Android, iOS, Machine Learning, Cloud, Front-End, Back-End, and other IT fields? Just go to Dicoding!</string>
+    <string name="title_welcome_page">Welcome to Dicoding!</string>
+    <string name="title_signup_page">Sign Up Now</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="error_msg_password">Password must be at least 8 characters</string>
+    <string name="message_login_page">Fill in Your Data</string>
+    <string name="title_login_page">Ready to Upgrade your Skill?</string>
+    <string name="name">Name</string>
+    <string name="message_main_page">Happy Learning at Dicoding.</string>
+    <string name="greeting">Hello %1$s,</string>
+    <string name="logout">Log Out</string>
+
 </resources>
