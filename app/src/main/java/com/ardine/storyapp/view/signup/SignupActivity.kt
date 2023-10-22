@@ -12,31 +12,22 @@
     import android.view.WindowManager
     import androidx.activity.viewModels
     import androidx.appcompat.app.AlertDialog
-    import androidx.lifecycle.lifecycleScope
+    import androidx.core.view.isVisible
     import com.ardine.storyapp.R
-    import com.ardine.storyapp.data.UserRepository
-    import com.ardine.storyapp.data.di.Injection
-    import com.ardine.storyapp.data.response.ErrorResponse
+    import com.ardine.storyapp.data.ResultState
     import com.ardine.storyapp.databinding.ActivitySignupBinding
+    import com.ardine.storyapp.view.ViewModelFactory
     import com.google.android.material.textfield.TextInputLayout
-    import com.google.gson.Gson
-    import kotlinx.coroutines.launch
-    import retrofit2.HttpException
 
     class SignupActivity : AppCompatActivity() {
         private lateinit var binding: ActivitySignupBinding
-        private val viewModel: SignupViewModel by viewModels()
-        private val userRepository: UserRepository = Injection.provideRepository(this)
-    
+        private val viewModel by viewModels<SignupViewModel> {
+            ViewModelFactory.getInstance(this)
+        }
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             binding = ActivitySignupBinding.inflate(layoutInflater)
             setContentView(binding.root)
-    
-    
-            viewModel.loadingVisibility.observe(this) { visibility ->
-                binding.loadingProgressBar.visibility = visibility
-            }
     
             playAnimation()
             setupView()
@@ -49,7 +40,7 @@
                     if (s.toString().length < 8) {
                         binding.apply {
                             passwordEditText.error = getString(R.string.error_msg_password)
-                            passwordEditTextLayout.endIconMode = TextInputLayout.END_ICON_CUSTOM
+                            passwordEditTextLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                         }
                         setSignupButton(false)
     
@@ -88,7 +79,6 @@
     
         private fun setupAction() {
             binding.signupButton.setOnClickListener {
-                viewModel.showLoading()
                 val name = binding.nameEditText.text.toString()
                 val email = binding.emailEditText.text.toString()
                 val password = binding.passwordEditText.text.toString()
@@ -98,31 +88,22 @@
         }
     
         private fun registerUser(name: String, email: String, password: String) {
-            lifecycleScope.launch {
-                try {
-                    val registerResponse = userRepository.register(name, email, password)
-                    val message: String? = registerResponse.message
+            viewModel.register(name, email, password).observe(this){ result ->
+                if (result != null){
+                    when (result) {
+                        ResultState.Loading -> {
+                            binding.loadingProgressBar.isVisible = true
+                        }
 
-                    if (message != null) {
-                        viewModel.hideLoading()
-                        showSuccessDialog(message)
-                    } else {
-                        viewModel.hideLoading()
-                        val errorMessage = "Registration failed. Please try again."
-                        showErrorDialog(errorMessage)
+                        is ResultState.Error -> {
+                            binding.loadingProgressBar.isVisible = false
+                            showErrorDialog(result.error)
+                        }
+                        is ResultState.Success -> {
+                            binding.loadingProgressBar.isVisible = false
+                            showSuccessDialog(result.data.message)
+                        }
                     }
-
-                }
-                catch (e: HttpException) {
-                    viewModel.hideLoading()
-                    val jsonInString = e.response()?.errorBody()?.string()
-                    val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-                    val errorMessage = errorBody.message ?: "Email is already taken"
-                    showErrorDialog(errorMessage)
-                } catch (e: Exception) {
-                    viewModel.hideLoading()
-                    val errorMessage = "Registration failed. Please check your internet connection."
-                    showErrorDialog(errorMessage)
                 }
             }
         }
@@ -176,6 +157,5 @@
                 )
                 startDelay = 100
             }.start()
-            viewModel.hideLoading()
         }
     }

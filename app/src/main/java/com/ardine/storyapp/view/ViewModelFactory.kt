@@ -7,6 +7,7 @@ import com.ardine.storyapp.data.UserRepository
 import com.ardine.storyapp.data.di.Injection
 import com.ardine.storyapp.view.login.LoginViewModel
 import com.ardine.storyapp.view.main.MainViewModel
+import com.ardine.storyapp.view.signup.SignupViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -18,6 +19,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
+                SignupViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

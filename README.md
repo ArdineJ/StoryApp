@@ -11,7 +11,8 @@
   - [x] Password (hidden)
 
 ## Custom EditText View
-  - [x] If the password length is less than 8 characters, display an error message directly within the EditText without needing to switch forms or click a button.
+  - [x] If the password length is less than 8 characters, display an error message directly within the 
+        EditText without needing to switch forms or click a button.
 
 ## Data Storage and Preferences
 - [x] Save session data and token in preferences.
@@ -53,3 +54,6 @@
 # SARAN SUBMISSION
 - [] Clean Code
   - [] CustomView, menampilkan error
+
+# Issue
+- [] end

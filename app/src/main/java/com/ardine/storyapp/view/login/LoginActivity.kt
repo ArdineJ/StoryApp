@@ -13,7 +13,8 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
-import com.ardine.storyapp.data.pref.UserModel
+import androidx.core.view.isVisible
+import com.ardine.storyapp.data.ResultState
 import com.ardine.storyapp.databinding.ActivityLoginBinding
 import com.ardine.storyapp.view.ViewModelFactory
 import com.ardine.storyapp.view.main.MainActivity
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun afterTextChanged(s: Editable) {
+            setupAction()
         }
     }
 
@@ -45,15 +47,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.loadingVisibility.observe(this) { visibility ->
-            binding.loadingProgressBar.visibility = visibility
-        }
-
         binding.emailEditText.addTextChangedListener(textWatcher)
         binding.passwordEditText.addTextChangedListener(textWatcher)
 
         setupView()
-        setupAction()
         playAnimation()
     }
 
@@ -75,19 +72,30 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
-            viewModel.showLoading()
             val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
 
-            viewModel.login(email) { success ->
-                if (success) {
-                    viewModel.hideLoading()
-                    val message = "Login Succeed"
-                    showSuccessDialog(message)
-                    viewModel.saveSession(UserModel(email, "sample_token"))
-                } else {
-                    viewModel.hideLoading()
-                    val errorMessage = "Login Failed"
-                    showErrorDialog(errorMessage)
+            loginUser(email,password)
+        }
+    }
+
+    private fun loginUser(email: String, password: String ){
+        viewModel.login(email, password).observe(this){ result ->
+            if (result != null){
+                when (result) {
+                    ResultState.Loading -> {
+                        binding.loadingProgressBar.isVisible = true
+                    }
+
+                    is ResultState.Error -> {
+                        binding.loadingProgressBar.isVisible = false
+                        showErrorDialog(result.error)
+                    }
+
+                    is ResultState.Success -> {
+                        binding.loadingProgressBar.isVisible = false
+                        showSuccessDialog(result.data.message)
+                    }
                 }
             }
         }
@@ -95,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(message: String) {
         AlertDialog.Builder(this).apply {
-            setTitle("Yeah!")
+            setTitle("Login Succeed")
             setMessage(message)
             setPositiveButton("Continue") { _, _ ->
                 val intent = Intent(context, MainActivity::class.java)
@@ -110,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showErrorDialog(message: String) {
         AlertDialog.Builder(this).apply {
-            setTitle("Failed!")
+            setTitle("Login Failed")
             setMessage(message)
             setPositiveButton("Back", null)
             create()
@@ -145,7 +153,6 @@ class LoginActivity : AppCompatActivity() {
             )
             startDelay = 100
         }.start()
-        viewModel.hideLoading()
     }
 
 }
