@@ -14,5 +14,6 @@
     <string name="message_main_page">Happy Learning at Dicoding.</string>
     <string name="greeting">Hello %1$s,</string>
     <string name="logout">Log Out</string>
+    <string name="required_fill">Required</string>
 
 </resources>

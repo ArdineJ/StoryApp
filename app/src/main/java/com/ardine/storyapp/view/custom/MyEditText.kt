@@ -26,7 +26,11 @@ class MyEditText : AppCompatEditText {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
+                error = if (s.isEmpty()) {
+                    "Required"
+                } else {
+                    null
+                }
             }
 
             override fun afterTextChanged(s: Editable) {

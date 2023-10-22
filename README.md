@@ -14,13 +14,14 @@
   - [x] If the password length is less than 8 characters, display an error message directly within the EditText without needing to switch forms or click a button.
 
 ## Data Storage and Preferences
-- [] Save session data and token in preferences.
-  - [] If already logged in, redirect to the homepage.
-  - [] If not logged in, redirect to the login page.
+- [x] Save session data and token in preferences.
+  - [x] If already logged in, redirect to the homepage.
+  **Only Succeed, not failed**
+  - [x] If not logged in, redirect to the login page.
 
 ## Logout Feature
-- [] Implement a logout feature.
-  - [] Delete token and session information when logout button is pressed.
+- [x] Implement a logout feature.
+  - [x] Delete token and session information when logout button is pressed.
 
 # List Story
 - [] Display a list of stories from the provided API.
@@ -40,12 +41,15 @@
 
 # Animations
 - [] Implement an animation in the application using one of the following types:
-  - [] Property Animation
+  - [x] Property Animation
   - [] Motion Animation
   - [] Shared Element
-- [] Specify the type and location of the animation in the Student Note.
+- [] Specify the type and location of the animation in the Student Note
+  - [x] WelcomeActivity
+  - [x] SignUpActivity
+  - [x]LoginActivity
 
 
 # SARAN SUBMISSION
 - [] Clean Code
-  - [] CustomeView, menampilkan error
+  - [] CustomView, menampilkan error
