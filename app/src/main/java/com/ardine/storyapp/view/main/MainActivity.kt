@@ -4,11 +4,18 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ardine.storyapp.R
+import com.ardine.storyapp.adapter.StoryListAdapter
 import com.ardine.storyapp.data.ResultState
+import com.ardine.storyapp.data.response.ListStoryItem
 import com.ardine.storyapp.databinding.ActivityMainBinding
 import com.ardine.storyapp.view.ViewModelFactory
 import com.ardine.storyapp.view.welcome.WelcomeActivity
@@ -30,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 setupView(user.token)
-                setupAction()
             }
         }
 
@@ -47,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
-        viewModel.getStories(token).observe(this){result ->
+        viewModel.getStory(token).observe(this){result ->
             if (result != null){
                 when (result) {
                     ResultState.Loading -> {
@@ -56,21 +62,37 @@ class MainActivity : AppCompatActivity() {
 
                     is ResultState.Error -> {
                         binding.loadingProgressBar.isVisible = false
+                        Toast.makeText(this, result.error ,Toast.LENGTH_SHORT).show()
                     }
 
                     is ResultState.Success -> {
                         binding.loadingProgressBar.isVisible = false
-                        result.data.listStory
+                        binding.rvStory.layoutManager = LinearLayoutManager(this)
+                        binding.rvStory.adapter = showRecyclerView(result.data.listStory, token)
                     }
                 }
             }
         }
     }
 
-    private fun setupAction() {
-        binding.logoutButton.setOnClickListener {
-            viewModel.logout()
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.setting_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logoutButton -> {
+                viewModel.logout()
+                return true
+            }
         }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun showRecyclerView(list: List<ListStoryItem>, token: String): StoryListAdapter {
+        return StoryListAdapter(list, token)
     }
 
 }

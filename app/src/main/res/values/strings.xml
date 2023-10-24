@@ -15,5 +15,7 @@
     <string name="greeting">Hello %1$s,</string>
     <string name="logout">Log Out</string>
     <string name="required_fill">Required</string>
+    <string name="title">Title</string>
+    <string name="desc">Description</string>
 
 </resources>

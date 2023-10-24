@@ -25,13 +25,13 @@
   - [x] Delete token and session information when logout button is pressed.
 
 # List Story
-- [] Display a list of stories from the provided API.
-  - [] Show user's Name for each story.
-  - [] Display a photo for each story.
-- [] Implement a detailed view for each story item:
-  - [] Show user's Name.
-  - [] Display a photo.
-  - [] Include a description for each story.
+- [x] Display a list of stories from the provided API.
+  - [x] Show user's Name for each story.
+  - [x] Display a photo for each story.
+- [x] Implement a detailed view for each story item:
+  - [x] Show user's Name.
+  - [x] Display a photo.
+  - [x] Include a description for each story.
 
 # Add Story
 - [] Create a page for adding new stories with gallery image selection.
@@ -48,12 +48,12 @@
 - [] Specify the type and location of the animation in the Student Note
   - [x] WelcomeActivity
   - [x] SignUpActivity
-  - [x]LoginActivity
+  - [x] LoginActivity
 
 
 # SARAN SUBMISSION
 - [] Clean Code
-  - [] CustomView, menampilkan error
+  - [x] CustomView, menampilkan error
 
 # Issue
-- [] end
+- [] eye still ketutup

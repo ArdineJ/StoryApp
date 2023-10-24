@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ardine.storyapp.data.UserRepository
 import com.ardine.storyapp.data.di.Injection
+import com.ardine.storyapp.view.detail.DetailViewModel
 import com.ardine.storyapp.view.login.LoginViewModel
 import com.ardine.storyapp.view.main.MainViewModel
 import com.ardine.storyapp.view.signup.SignupViewModel
@@ -23,6 +24,10 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
                 SignupViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(repository) as T
+            }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

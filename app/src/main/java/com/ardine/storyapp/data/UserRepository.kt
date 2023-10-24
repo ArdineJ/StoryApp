@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.ardine.storyapp.data.api.ApiService
 import com.ardine.storyapp.data.pref.UserModel
 import com.ardine.storyapp.data.pref.UserPreference
+import com.ardine.storyapp.data.response.DetailStoryResponse
 import com.ardine.storyapp.data.response.LoginResponse
 import com.ardine.storyapp.data.response.RegisterResponse
 import com.ardine.storyapp.data.response.StoryResponse
@@ -45,10 +46,10 @@ class UserRepository private constructor(
         }
     }
 
-    fun getStories(token: String): LiveData<ResultState<StoryResponse>> = liveData{
+    fun getStory(token: String): LiveData<ResultState<StoryResponse>> = liveData{
         emit(ResultState.Loading)
         try {
-            val response = apiService.getStories("Bearer $token")
+            val response = apiService.getStory("Bearer $token")
             if (response.error){
                 emit(ResultState.Error(response.message))
             }
@@ -56,6 +57,21 @@ class UserRepository private constructor(
                 emit(ResultState.Success(response))
             }
         } catch (e:Exception){
+            emit(ResultState.Error(e.message.toString()))
+        }
+    }
+
+    fun getDetailStory(token: String, id: String): LiveData<ResultState<DetailStoryResponse>> = liveData{
+        emit(ResultState.Loading)
+        try {
+            val response = apiService.getDetailStory("Bearer $token", id)
+            if(response.error) {
+                emit(ResultState.Error(response.message))
+            }  else {
+                emit(ResultState.Success(response))
+            }
+        }
+        catch (e:Exception){
             emit(ResultState.Error(e.message.toString()))
         }
     }

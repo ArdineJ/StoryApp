@@ -9,7 +9,7 @@ import com.ardine.storyapp.data.pref.UserModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: UserRepository) : ViewModel() {
-    fun getStories(token: String) = repository.getStories(token)
+    fun getStory(token: String) = repository.getStory(token)
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
