@@ -3,7 +3,7 @@ package com.ardine.storyapp.view
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ardine.storyapp.data.UserRepository
+import com.ardine.storyapp.data.Repository
 import com.ardine.storyapp.data.di.Injection
 import com.ardine.storyapp.view.camera.MediaViewModel
 import com.ardine.storyapp.view.detail.DetailViewModel
@@ -11,7 +11,7 @@ import com.ardine.storyapp.view.login.LoginViewModel
 import com.ardine.storyapp.view.main.MainViewModel
 import com.ardine.storyapp.view.signup.SignupViewModel
 
-class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

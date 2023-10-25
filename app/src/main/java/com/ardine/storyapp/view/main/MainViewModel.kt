@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.ardine.storyapp.data.UserRepository
+import com.ardine.storyapp.data.Repository
 import com.ardine.storyapp.data.pref.UserModel
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: UserRepository) : ViewModel() {
+class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getStory(token: String) = repository.getStory(token)
 
     fun getSession(): LiveData<UserModel> {

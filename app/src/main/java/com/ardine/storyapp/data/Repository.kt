@@ -19,7 +19,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class UserRepository private constructor(
+class Repository private constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
@@ -96,7 +96,7 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
-    fun uploadImage(imageFile: File, description: String) = liveData {
+    fun uploadImage(token: String, imageFile: File, description: String) = liveData {
         emit(ResultState.Loading)
         val requestBody = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -106,8 +106,8 @@ class UserRepository private constructor(
             requestImageFile
         )
         try {
-            val successResponse = apiService.uploadImage(multipartBody, requestBody)
-            emit(ResultState.Success(successResponse))
+            val response = apiService.uploadImage("Bearer $token", multipartBody, requestBody)
+            emit(ResultState.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, FileUploadResponse::class.java)
@@ -117,14 +117,14 @@ class UserRepository private constructor(
 
     companion object {
         @Volatile
-        private var instance: UserRepository? = null
+        private var instance: Repository? = null
 
         fun getInstance(
             apiService: ApiService,
             userPreference: UserPreference
-        ): UserRepository =
+        ): Repository =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(apiService, userPreference)
+                instance ?: Repository(apiService, userPreference)
             }.also { instance = it }
     }
 }

@@ -17,7 +17,6 @@
 ## Data Storage and Preferences
 - [x] Save session data and token in preferences.
   - [x] If already logged in, redirect to the homepage.
-  **Only Succeed, not failed**
   - [x] If not logged in, redirect to the login page.
 
 ## Logout Feature
@@ -34,30 +33,32 @@
   - [x] Include a description for each story.
 
 # Add Story
-- [] Create a page for adding new stories with gallery image selection.
-  - [] Include a photo file selection.
-  - [] Add a story description input.
-- [] Provide an upload button to send data to the server.
-- [] After a successful upload, return to the list of stories with the most recent story at the top.
+- [x] Create a page for adding new stories with gallery image selection.
+  - [x] Include a photo file selection.
+  - [x] Add a story description input.
+- [x] Provide an upload button to send data to the server.
+- [x] After a successful upload, return to the list of stories with the most recent story at the top.
 
 # Animations
-- [] Implement an animation in the application using one of the following types:
+- [x] Implement an animation in the application using one of the following types:
   - [x] Property Animation
   - [] Motion Animation
   - [x] Shared Element
-- [] Specify the type and location of the animation in the Student Note
+- [x] Specify the type and location of the animation in the Student Note
   - [x] WelcomeActivity
   - [x] SignUpActivity
   - [x] LoginActivity
+  - [x] MainActivity
+  - [x] DetailActivity
 
 
 # SARAN SUBMISSION
 ## Code Quality
 
-- [ ] Ensure clean code formatting.
-- [ ] Remove unused comments and code.
-- [ ] Maintain proper code indentation.
-- [ ] Remove unused imports.
+- [] Ensure clean code formatting.
+  - [] Remove unused comments and code.
+  - [] Maintain proper code indentation.
+  - [] Remove unused imports.
 
 ## Custom View - EditText
 
@@ -101,3 +102,4 @@
 
 # Issue
 - [] eye still ketutup
+- [] desc luberrr

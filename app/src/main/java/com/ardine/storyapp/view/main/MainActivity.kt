@@ -38,14 +38,15 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 setupView(user.token)
-                setupAction()
+                setupAction(user.token)
             }
         }
 
     }
 
-    private fun setupAction() {
+    private fun setupAction(token: String) {
         val intent = Intent(this, MediaActivity::class.java)
+        intent.putExtra(MediaActivity.EXTRA_TOKEN, token)
 
         binding.btnAdd.setOnClickListener{
             startActivity(intent)
@@ -62,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        supportActionBar?.hide()
         viewModel.getStory(token).observe(this@MainActivity){result ->
             binding.btnAdd
             if (result != null){
