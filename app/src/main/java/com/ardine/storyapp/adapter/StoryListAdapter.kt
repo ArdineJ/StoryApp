@@ -33,7 +33,7 @@ class StoryListAdapter(private val listStory: List<ListStoryItem>, private val t
 
                 Glide.with(itemView.context)
                     .load(story.photoUrl)
-                    .error(R.drawable.image_dicoding)
+                    .error(R.drawable.ic_place_holder)
                     .into(ivStory)
 
                 itemView.setOnClickListener {

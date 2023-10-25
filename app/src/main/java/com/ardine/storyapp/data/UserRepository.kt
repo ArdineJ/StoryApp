@@ -6,10 +6,18 @@ import com.ardine.storyapp.data.api.ApiService
 import com.ardine.storyapp.data.pref.UserModel
 import com.ardine.storyapp.data.pref.UserPreference
 import com.ardine.storyapp.data.response.DetailStoryResponse
+import com.ardine.storyapp.data.response.FileUploadResponse
 import com.ardine.storyapp.data.response.LoginResponse
 import com.ardine.storyapp.data.response.RegisterResponse
 import com.ardine.storyapp.data.response.StoryResponse
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.HttpException
+import java.io.File
 
 class UserRepository private constructor(
     private val apiService: ApiService,
@@ -86,6 +94,25 @@ class UserRepository private constructor(
 
     suspend fun logout() {
         userPreference.logout()
+    }
+
+    fun uploadImage(imageFile: File, description: String) = liveData {
+        emit(ResultState.Loading)
+        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "photo",
+            imageFile.name,
+            requestImageFile
+        )
+        try {
+            val successResponse = apiService.uploadImage(multipartBody, requestBody)
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, FileUploadResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
     }
 
     companion object {

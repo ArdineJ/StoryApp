@@ -41,7 +41,12 @@ android {
 }
 
 dependencies {
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    val cameraxVersion = "1.2.3"
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
+
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 

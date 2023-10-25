@@ -44,7 +44,7 @@
 - [] Implement an animation in the application using one of the following types:
   - [x] Property Animation
   - [] Motion Animation
-  - [] Shared Element
+  - [x] Shared Element
 - [] Specify the type and location of the animation in the Student Note
   - [x] WelcomeActivity
   - [x] SignUpActivity
@@ -52,8 +52,52 @@
 
 
 # SARAN SUBMISSION
-- [] Clean Code
-  - [x] CustomView, menampilkan error
+## Code Quality
+
+- [ ] Ensure clean code formatting.
+- [ ] Remove unused comments and code.
+- [ ] Maintain proper code indentation.
+- [ ] Remove unused imports.
+
+## Custom View - EditText
+
+- [ ] Create a custom EditText that displays an error if the email format is incorrect.
+
+## Camera Integration
+
+- [ ] Add an option to capture images using the device's camera when adding a story.
+
+## API Interaction
+
+- [ ] Ensure that the app waits for a successful or failed response before navigating to a new screen during registration, login, and story upload.
+
+## App Flow
+
+- [ ] After successful login, pressing the back button on the home page should exit the app, not return to the login page.
+- [ ] After a story is uploaded, pressing the back button on the home page should exit the app, not return to the upload page.
+- [ ] After logging out, pressing the back button should exit the app, not return to the previous screen.
+
+## Stack Widget
+
+- [ ] Implement a stack widget to display a list of stories.
+
+## Localization
+
+- [ ] Add support for multi-language localization in the app.
+
+## User Interaction with API
+
+- [ ] Display loading indicators when data is being fetched.
+- [ ] Show informative error messages when requests fail.
+- [ ] Provide user-friendly messages when no data is available.
+
+## Architecture
+
+- [ ] Implement Android Architecture Components, including ViewModel and LiveData, correctly on all screens with business logic.
+
+## Additional Improvements
+
+- [ ] Add any other recommended features or improvements as needed.
 
 # Issue
 - [] eye still ketutup

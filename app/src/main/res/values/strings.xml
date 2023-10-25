@@ -18,4 +18,9 @@
     <string name="title">Title</string>
     <string name="desc">Description</string>
 
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="empty_image_warning">Please enter the image file first.</string>
+
 </resources>

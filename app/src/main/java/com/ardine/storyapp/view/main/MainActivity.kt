@@ -18,6 +18,7 @@ import com.ardine.storyapp.data.ResultState
 import com.ardine.storyapp.data.response.ListStoryItem
 import com.ardine.storyapp.databinding.ActivityMainBinding
 import com.ardine.storyapp.view.ViewModelFactory
+import com.ardine.storyapp.view.camera.MediaActivity
 import com.ardine.storyapp.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +38,18 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 setupView(user.token)
+                setupAction()
             }
         }
 
+    }
+
+    private fun setupAction() {
+        val intent = Intent(this, MediaActivity::class.java)
+
+        binding.btnAdd.setOnClickListener{
+            startActivity(intent)
+        }
     }
 
     private fun setupView(token: String) {
@@ -53,7 +63,8 @@ class MainActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
-        viewModel.getStory(token).observe(this){result ->
+        viewModel.getStory(token).observe(this@MainActivity){result ->
+            binding.btnAdd
             if (result != null){
                 when (result) {
                     ResultState.Loading -> {
@@ -66,9 +77,11 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Success -> {
-                        binding.loadingProgressBar.isVisible = false
-                        binding.rvStory.layoutManager = LinearLayoutManager(this)
-                        binding.rvStory.adapter = showRecyclerView(result.data.listStory, token)
+                        binding.apply {
+                            loadingProgressBar.isVisible = false
+                            rvStory.layoutManager = LinearLayoutManager(this@MainActivity)
+                            rvStory.adapter = showRecyclerView(result.data.listStory, token)
+                        }
                     }
                 }
             }

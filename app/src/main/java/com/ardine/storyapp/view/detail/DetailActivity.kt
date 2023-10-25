@@ -63,7 +63,7 @@ class DetailActivity : AppCompatActivity() {
 
                             Glide.with(this@DetailActivity)
                                 .load(result.data.story.photoUrl)
-                                .error(R.drawable.image_dicoding)
+                                .error(R.drawable.ic_place_holder)
                                 .into(ivStory)
 
                         }
