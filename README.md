@@ -99,7 +99,3 @@
 ## Additional Improvements
 
 - [] Add any other recommended features or improvements as needed.
-
-# Issue
-- [] eye still ketutup
-- [] desc luberrr
