@@ -33,7 +33,6 @@
             setupView()
             binding.passwordEditText.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-    
                 }
     
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -97,7 +96,7 @@
 
                         is ResultState.Error -> {
                             binding.loadingProgressBar.isVisible = false
-                            showErrorDialog(result.error)
+                            showErrorDialog(getString(R.string.sign_up_failed))
                         }
                         is ResultState.Success -> {
                             binding.loadingProgressBar.isVisible = false
@@ -111,9 +110,9 @@
     
         private fun showSuccessDialog(message: String) {
             AlertDialog.Builder(this).apply {
-                setTitle("Success!")
+                setTitle(getString(R.string.success))
                 setMessage(message)
-                setPositiveButton("Continue") { _, _ ->
+                setPositiveButton(getString(R.string.continue_txt)) { _, _ ->
                     finish()
                 }
                 create()
@@ -123,9 +122,9 @@
     
         private fun showErrorDialog(message: String) {
             AlertDialog.Builder(this).apply {
-                setTitle("Error!")
+                setTitle(getString(R.string.failed))
                 setMessage(message)
-                setPositiveButton("OK", null)
+                setPositiveButton(getString(R.string.retry), null)
                 create()
                 show()
             }

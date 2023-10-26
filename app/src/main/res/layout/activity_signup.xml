@@ -76,7 +76,7 @@
         android:alpha="0"
         tools:alpha="100">
 
-    <com.ardine.storyapp.view.custom.MyEditText
+    <com.ardine.storyapp.view.custom.EmailEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.ardine.storyapp.view.camera
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -30,9 +31,11 @@ class MediaActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    getString(R.string.permission_request_granted), Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    getString(R.string.permission_request_denied), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -51,6 +54,7 @@ class MediaActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
+        supportActionBar?.hide()
         val token = intent.getStringExtra(EXTRA_TOKEN)
 
         binding.apply {
@@ -75,7 +79,7 @@ class MediaActivity : AppCompatActivity() {
             currentImageUri = uri
             showImage()
         } else {
-            showToast("No media Selected")
+            showToast(getString(R.string.no_media_selected))
         }
     }
 
@@ -111,13 +115,24 @@ class MediaActivity : AppCompatActivity() {
 
                         is ResultState.Success -> {
                             binding.loadingProgressBar.isVisible = false
-                            showToast(result.data.message)
-                            startActivity(Intent(this, MainActivity::class.java))
+                            AlertDialog.Builder(this).apply {
+                                setTitle(getString(R.string.upload_succeed))
+                                setMessage(result.data.message)
+                                setPositiveButton(getString(R.string.continue_txt)) { _, _ ->
+                                    val intent = Intent(context, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                create()
+                                show()
+                            }
+
                         }
 
                         is ResultState.Error -> {
                             binding.loadingProgressBar.isVisible = false
-                            showToast(result.error)
+                            showToast(getString(R.string.lost_connection))
                         }
                     }
                 }

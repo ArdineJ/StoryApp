@@ -14,6 +14,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import com.ardine.storyapp.R
 import com.ardine.storyapp.data.ResultState
 import com.ardine.storyapp.databinding.ActivityLoginBinding
 import com.ardine.storyapp.view.ViewModelFactory
@@ -89,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
 
                     is ResultState.Error -> {
                         binding.loadingProgressBar.isVisible = false
-                        showErrorDialog(result.error)
+                        showErrorDialog(getString(R.string.login_failed))
                     }
 
                     is ResultState.Success -> {
@@ -103,9 +104,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(message: String) {
         AlertDialog.Builder(this).apply {
-            setTitle("Login Succeed")
+            setTitle(getString(R.string.login_succeed))
             setMessage(message)
-            setPositiveButton("Continue") { _, _ ->
+            setPositiveButton(getString(R.string.continue_txt)) { _, _ ->
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -118,9 +119,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showErrorDialog(message: String) {
         AlertDialog.Builder(this).apply {
-            setTitle("Login Failed")
+            setTitle(getString(R.string.failed))
             setMessage(message)
-            setPositiveButton("Back", null)
+            setPositiveButton(getString(R.string.retry), null)
             create()
             show()
         }

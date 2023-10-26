@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowInsets
@@ -64,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
         viewModel.getStory(token).observe(this@MainActivity){result ->
-            binding.btnAdd
             if (result != null){
                 when (result) {
                     ResultState.Loading -> {
@@ -73,14 +73,21 @@ class MainActivity : AppCompatActivity() {
 
                     is ResultState.Error -> {
                         binding.loadingProgressBar.isVisible = false
-                        Toast.makeText(this, result.error ,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.lost_connection) ,Toast.LENGTH_SHORT).show()
                     }
 
                     is ResultState.Success -> {
-                        binding.apply {
-                            loadingProgressBar.isVisible = false
-                            rvStory.layoutManager = LinearLayoutManager(this@MainActivity)
-                            rvStory.adapter = showRecyclerView(result.data.listStory, token)
+                        binding.loadingProgressBar.isVisible = false
+                        if (result.data.listStory.isNotEmpty()){
+                            binding.apply {
+                                rvStory.layoutManager = LinearLayoutManager(this@MainActivity)
+                                rvStory.adapter = showRecyclerView(result.data.listStory, token)
+                            }
+                        } else {
+                            binding.apply {
+                                rvStory.isVisible = false
+                                noDataTextView.isVisible = true
+                            }
                         }
                     }
                 }
@@ -98,6 +105,9 @@ class MainActivity : AppCompatActivity() {
             R.id.logoutButton -> {
                 viewModel.logout()
                 return true
+            }
+            R.id.translateButton -> {
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
         }
         return super.onOptionsItemSelected(item)

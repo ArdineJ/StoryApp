@@ -52,7 +52,7 @@ class DetailActivity : AppCompatActivity() {
 
                     is ResultState.Error -> {
                         binding.loadingProgressBar.isVisible = false
-                        Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.lost_connection), Toast.LENGTH_SHORT).show()
                     }
 
                     is ResultState.Success -> {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StoryApp</string>
+    <string name="app_name">Story App</string>
     <string name="signup">Sign Up</string>
     <string name="login">Login</string>
     <string name="message_welcome_page">Want to learn Android, iOS, Machine Learning, Cloud, Front-End, Back-End, and other IT fields? Just go to Dicoding!</string>
@@ -17,10 +17,22 @@
     <string name="required_fill">Required</string>
     <string name="title">Title</string>
     <string name="desc">Description</string>
-
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
     <string name="empty_image_warning">Please enter the image file first.</string>
-
+    <string name="no_stories_available">No stories available</string>
+    <string name="lost_connection">"Lost Connection</string>
+    <string name="upload_succeed">Upload Succeed</string>
+    <string name="login_succeed">Login Succeed</string>
+    <string name="no_media_selected">No media Selected</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="failed">Failed</string>
+    <string name="permission_request_granted">Permission request granted</string>
+    <string name="permission_request_denied">Permission request denied</string>
+    <string name="success">Success</string>
+    <string name="sign_up_failed">Sign Up Failed</string>
+    <string name="retry">Retry</string>
+    <string name="invalid_email_format">Invalid Email Format</string>
+    <string name="continue_txt">Continue</string>
 </resources>
