@@ -35,4 +35,5 @@
     <string name="retry">再試行</string>
     <string name="invalid_email_format">無効なメール形式</string>
     <string name="continue_txt">続行</string>
+    <string name="don_t_have_an_account">アカウントを持っていませんか？</string>
 </resources>

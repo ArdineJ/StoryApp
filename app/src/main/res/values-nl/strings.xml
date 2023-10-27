@@ -35,4 +35,5 @@
     <string name="retry">Opnieuw proberen</string>
     <string name="invalid_email_format">Ongeldige e-mailindeling</string>
     <string name="continue_txt">Doorgaan</string>
+    <string name="don_t_have_an_account">Heb je geen account?</string>
 </resources>

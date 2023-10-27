@@ -34,11 +34,11 @@
             binding.passwordEditText.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 }
-    
+
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     if (s.toString().length < 8) {
                         binding.apply {
-                            passwordEditText.error = getString(R.string.error_msg_password)
+                            passwordEditText.setError(getString(R.string.error_msg_password),null)
                             passwordEditTextLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
                         }
                         setSignupButton(false)
@@ -51,7 +51,7 @@
                         setSignupButton(true)
                     }
                 }
-    
+
                 override fun afterTextChanged(s: Editable) {
                     setupAction()
                 }

@@ -35,4 +35,5 @@
     <string name="retry">Coba Lagi</string>
     <string name="invalid_email_format">Format Email Tidak Valid</string>
     <string name="continue_txt">Lanjutkan</string>
+    <string name="don_t_have_an_account">Belum punya akun?</string>
 </resources>

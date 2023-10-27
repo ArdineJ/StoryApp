@@ -4,21 +4,29 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.TextWatcher
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.ardine.storyapp.R
 import com.ardine.storyapp.data.ResultState
 import com.ardine.storyapp.databinding.ActivityLoginBinding
 import com.ardine.storyapp.view.ViewModelFactory
 import com.ardine.storyapp.view.main.MainActivity
+import com.ardine.storyapp.view.signup.SignupActivity
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
@@ -47,6 +55,34 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val signUpLink = binding.signUpLink
+
+        val signUpText = getString(R.string.signup)
+        val text = signUpLink.text.toString()
+
+        val spannable = SpannableString(text)
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+                startActivity(intent)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = ContextCompat.getColor(this@LoginActivity, R.color.light_navy)
+                ds.isUnderlineText = false
+            }
+        }
+
+        val start = text.indexOf(signUpText)
+        val end = start + signUpText.length
+
+        spannable.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        signUpLink.text = spannable
+        signUpLink.movementMethod = LinkMovementMethod.getInstance()
+        signUpLink.highlightColor = Color.TRANSPARENT
 
         binding.emailEditText.addTextChangedListener(textWatcher)
         binding.passwordEditText.addTextChangedListener(textWatcher)

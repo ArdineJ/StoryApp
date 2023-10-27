@@ -26,7 +26,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="@string/title_login_page"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +42,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="@string/message_login_page"
-        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"        android:alpha="0"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        android:alpha="0"
         tools:alpha="100"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -91,7 +90,7 @@
         android:alpha="0"
         tools:alpha="100">
 
-        <com.ardine.storyapp.view.custom.MyEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,6 +114,27 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
         android:alpha="0"
         tools:alpha="100"/>
+
+    <TextView
+        android:id="@+id/tv_dont_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/don_t_have_an_account"
+        app:layout_constraintEnd_toEndOf="@+id/loginButton"
+        app:layout_constraintStart_toStartOf="@+id/loginButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+
+    <TextView
+        android:id="@+id/signUpLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signup"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dont_have_account"
+        app:layout_constraintStart_toStartOf="@+id/tv_dont_have_account"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dont_have_account"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
