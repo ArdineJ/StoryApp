@@ -2,11 +2,16 @@ package com.ardine.storyapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.ardine.storyapp.data.api.ApiService
 import com.ardine.storyapp.data.pref.UserModel
 import com.ardine.storyapp.data.pref.UserPreference
 import com.ardine.storyapp.data.response.DetailStoryResponse
 import com.ardine.storyapp.data.response.FileUploadResponse
+import com.ardine.storyapp.data.response.ListStoryItem
 import com.ardine.storyapp.data.response.LoginResponse
 import com.ardine.storyapp.data.response.RegisterResponse
 import com.ardine.storyapp.data.response.StoryResponse
@@ -69,6 +74,35 @@ class Repository private constructor(
         }
     }
 
+    fun getStoriesWithLocation(token: String): LiveData<ResultState<StoryResponse>> = liveData{
+        emit(ResultState.Loading)
+        try {
+            val response = apiService.getStoriesWithLocation("Bearer $token")
+            if (response.error){
+                emit(ResultState.Error(response.message))
+            }
+            else {
+                emit(ResultState.Success(response))
+            }
+        } catch (e:Exception){
+            emit(ResultState.Error(e.message.toString()))
+        }
+    }
+
+    fun getPagingStory(token: String): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(
+                    apiService,
+                    token
+                )
+            }
+        ).liveData
+    }
+
     fun getDetailStory(token: String, id: String): LiveData<ResultState<DetailStoryResponse>> = liveData{
         emit(ResultState.Loading)
         try {
@@ -84,7 +118,7 @@ class Repository private constructor(
         }
     }
 
-    suspend fun saveSession(user: UserModel) {
+    private suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
 

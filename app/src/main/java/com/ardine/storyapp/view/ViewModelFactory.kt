@@ -9,6 +9,7 @@ import com.ardine.storyapp.view.camera.MediaViewModel
 import com.ardine.storyapp.view.detail.DetailViewModel
 import com.ardine.storyapp.view.login.LoginViewModel
 import com.ardine.storyapp.view.main.MainViewModel
+import com.ardine.storyapp.view.maps.MapsViewModel
 import com.ardine.storyapp.view.signup.SignupViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
@@ -30,6 +31,9 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             }
             modelClass.isAssignableFrom(MediaViewModel::class.java) -> {
                 MediaViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

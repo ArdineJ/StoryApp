@@ -14,12 +14,13 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardine.storyapp.R
+import com.ardine.storyapp.adapter.LoadingStateAdapter
 import com.ardine.storyapp.adapter.StoryListAdapter
 import com.ardine.storyapp.data.ResultState
-import com.ardine.storyapp.data.response.ListStoryItem
 import com.ardine.storyapp.databinding.ActivityMainBinding
 import com.ardine.storyapp.view.ViewModelFactory
 import com.ardine.storyapp.view.camera.MediaActivity
+import com.ardine.storyapp.view.maps.MapsActivity
 import com.ardine.storyapp.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
+    private var token : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +40,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             } else {
+                token = user.token
                 setupView(user.token)
                 setupAction(user.token)
             }
         }
-
     }
 
     private fun setupAction(token: String) {
@@ -79,9 +81,17 @@ class MainActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         binding.loadingProgressBar.isVisible = false
                         if (result.data.listStory.isNotEmpty()){
+                            val adapter = StoryListAdapter(token)
                             binding.apply {
                                 rvStory.layoutManager = LinearLayoutManager(this@MainActivity)
-                                rvStory.adapter = showRecyclerView(result.data.listStory, token)
+                                rvStory.adapter = adapter.withLoadStateFooter(
+                                    footer = LoadingStateAdapter{
+                                        adapter.retry()
+                                    },
+                                )
+                                viewModel.pagingStoryList(token).observe(this@MainActivity){
+                                    adapter.submitData(lifecycle,it)
+                                }
                             }
                         } else {
                             binding.apply {
@@ -102,6 +112,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.mapsButton ->{
+                token?.let { tokenValue ->
+                    val intent = Intent(this, MapsActivity::class.java)
+                    intent.putExtra(MapsActivity.EXTRA_TOKEN, tokenValue)
+                    startActivity(intent)
+                }
+            }
             R.id.logoutButton -> {
                 viewModel.logout()
                 return true
@@ -112,10 +129,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-    private fun showRecyclerView(list: List<ListStoryItem>, token: String): StoryListAdapter {
-        return StoryListAdapter(list, token)
-    }
-
 }

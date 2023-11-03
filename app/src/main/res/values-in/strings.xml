@@ -36,4 +36,12 @@
     <string name="invalid_email_format">Format Email Tidak Valid</string>
     <string name="continue_txt">Lanjutkan</string>
     <string name="don_t_have_an_account">Belum punya akun?</string>
+
+    <string name="title_activity_maps">Peta Cerita</string>
+    <string name="maps">Peta</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satelit</string>
+    <string name="terrain_type">Lahan</string>
+    <string name="hybrid_type">Hibrida</string>
+    <string name="an_error_occurred_please_try_again">Terjadi kesalahan. Silakan coba lagi.</string>
 </resources>

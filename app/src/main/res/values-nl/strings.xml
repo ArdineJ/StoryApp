@@ -36,4 +36,13 @@
     <string name="invalid_email_format">Ongeldige e-mailindeling</string>
     <string name="continue_txt">Doorgaan</string>
     <string name="don_t_have_an_account">Heb je geen account?</string>
+
+    <string name="title_activity_maps">Kaartenverhaal</string>
+    <string name="maps">Kaarten</string>
+    <string name="normal_type">Normaal</string>
+    <string name="satellite_type">Satelliet</string>
+    <string name="terrain_type">Terrein</string>
+    <string name="hybrid_type">Hybride</string>
+    <string name="an_error_occurred_please_try_again">Er is een fout opgetreden. Probeer het opnieuw.</string>
+
 </resources>

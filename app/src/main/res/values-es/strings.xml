@@ -35,5 +35,14 @@
     <string name="retry">Reintentar</string>
     <string name="invalid_email_format">Formato de correo electrónico no válido</string>
     <string name="continue_txt">Continuar</string>
-    <string name="don_t_have_an_account">¿No tienes una cuenta?\"</string>
+    <string name="don_t_have_an_account">¿No tienes una cuenta?"</string>
+
+    <string name="title_activity_maps">Historias en Mapas</string>
+    <string name="maps">Mapas</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satélite</string>
+    <string name="terrain_type">Terreno</string>
+    <string name="hybrid_type">Híbrido</string>
+    <string name="an_error_occurred_please_try_again">Se produjo un error. Por favor, inténtalo de nuevo.</string>
+
 </resources>
