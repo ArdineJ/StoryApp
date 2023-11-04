@@ -44,4 +44,8 @@
     <string name="terrain_type">地形</string>
     <string name="hybrid_type">ハイブリッド</string>
     <string name="an_error_occurred_please_try_again">エラーが発生しました。もう一度お試しください。</string>
+
+    <string name="include_gps_location">GPS位置情報を含める</string>
+    <string name="failed_to_get_location">位置情報の取得に失敗しました</string>
+
 </resources>

@@ -44,4 +44,6 @@
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
     <string name="an_error_occurred_please_try_again">An error occurred. Please try again.</string>
+    <string name="include_gps_location">Include GPS Location</string>
+    <string name="failed_to_get_location">Failed to get Location</string>
 </resources>

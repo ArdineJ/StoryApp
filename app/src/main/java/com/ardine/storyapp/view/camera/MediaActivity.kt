@@ -18,12 +18,16 @@ import com.ardine.storyapp.data.ResultState
 import com.ardine.storyapp.databinding.ActivityMediaBinding
 import com.ardine.storyapp.view.ViewModelFactory
 import com.ardine.storyapp.view.main.MainActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 
 class MediaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMediaBinding
     private val viewModel by viewModels<MediaViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var currentImageUri: Uri? = null
 
     private val requestPermissionLauncher =
@@ -44,6 +48,28 @@ class MediaActivity : AppCompatActivity() {
             this,
             REQUIRED_PERMISSION
         ) == PackageManager.PERMISSION_GRANTED
+
+    private fun requestLocation(callback: (LatLng) -> Unit) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        val latLng = LatLng(location.latitude, location.longitude)
+                        callback(latLng)
+                    }
+                }
+                .addOnFailureListener { _ ->
+                    Toast.makeText(this,
+                        getString(R.string.failed_to_get_location), Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +92,19 @@ class MediaActivity : AppCompatActivity() {
                 }
             }
         }
+
+        val includeLocationCheckBox = binding.locationCheckBox
+        includeLocationCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                requestLocation { latLng ->
+                    if (token != null) {
+                        uploadImageWithLocation(token, latLng)
+                    }
+                }
+            }
+        }
     }
+
 
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -102,10 +140,51 @@ class MediaActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun uploadImageWithLocation(token: String, latLng: LatLng) {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            val description = binding.editTextDesc.text.toString()
+
+            viewModel.uploadImageWithLocation(token, imageFile, description, latLng).observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        ResultState.Loading -> {
+                            binding.loadingProgressBar.isVisible = true
+                        }
+
+                        is ResultState.Success -> {
+                            binding.loadingProgressBar.isVisible = false
+                            AlertDialog.Builder(this).apply {
+                                setTitle(getString(R.string.upload_succeed))
+                                setMessage(result.data.message)
+                                setPositiveButton(getString(R.string.continue_txt)) { _, _ ->
+                                    val intent = Intent(context, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                create()
+                                show()
+                            }
+
+                        }
+
+                        is ResultState.Error -> {
+                            binding.loadingProgressBar.isVisible = false
+                            showToast(getString(R.string.lost_connection))
+                        }
+                    }
+                }
+            }
+        } ?: showToast(getString(R.string.empty_image_warning))
+    }
+
     private fun uploadImage(token: String) {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             val description = binding.editTextDesc.text.toString()
+
             viewModel.uploadImage(token, imageFile, description).observe(this) { result ->
                 if (result != null) {
                     when (result) {

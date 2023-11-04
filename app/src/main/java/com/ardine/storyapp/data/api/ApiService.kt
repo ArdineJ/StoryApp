@@ -5,6 +5,7 @@ import com.ardine.storyapp.data.response.FileUploadResponse
 import com.ardine.storyapp.data.response.LoginResponse
 import com.ardine.storyapp.data.response.RegisterResponse
 import com.ardine.storyapp.data.response.StoryResponse
+import com.google.android.gms.maps.model.LatLng
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Field
@@ -54,6 +55,15 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
+    ): FileUploadResponse
+
+    @Multipart
+    @POST("stories")
+    suspend fun uploadImageWithLocation(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+        @Part("location")  latLng: LatLng,
     ): FileUploadResponse
 
     @GET("stories")

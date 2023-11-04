@@ -44,4 +44,6 @@
     <string name="terrain_type">Lahan</string>
     <string name="hybrid_type">Hibrida</string>
     <string name="an_error_occurred_please_try_again">Terjadi kesalahan. Silakan coba lagi.</string>
+    <string name="include_gps_location">Sertakan Lokasi GPS</string>
+    <string name="failed_to_get_location">Gagal mendapatkan Lokasi</string>
 </resources>

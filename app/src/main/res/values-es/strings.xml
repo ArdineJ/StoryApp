@@ -45,4 +45,7 @@
     <string name="hybrid_type">Híbrido</string>
     <string name="an_error_occurred_please_try_again">Se produjo un error. Por favor, inténtalo de nuevo.</string>
 
+    <string name="include_gps_location">Inclusief GPS-locatie</string>
+    <string name="failed_to_get_location">Locatie ophalen is mislukt</string>
+
 </resources>

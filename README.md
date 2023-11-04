@@ -114,7 +114,7 @@
 - [x] Implement a story list using Paging 3 correctly.
   - [x] Ensure that stories are loaded and displayed as expected. 
 
-## Membuat Testing
+## Make Testing
 - [ ] Implement unit tests for functions in the ViewModel that retrieve Paging data.
   - [ ] Test scenarios for successful data loading.
     - [ ] Ensure data is not null.
@@ -134,9 +134,8 @@
   - [ ] Informative message when no data is available.
 - [x] Use a custom map style for Google Maps.
 - [ ] Use Paging 3 with RemoteMediator
-- [ ] Add an optional feature to input the current GPS location using a checkbox or switch when adding a story.
+- [x] Add an optional feature to input the current GPS location using a checkbox or switch when adding a story.
 - [ ] Implement Android Architecture Components (at least ViewModel and LiveData) correctly on all pages containing business logic.
 - [ ] Implement UI testing and idling resources for one of the following scenarios:
   - [ ] Ensure the login and logout processes are working as expected.
   - [ ] Ensure the story addition process functions correctly.
-

@@ -15,6 +15,7 @@ import com.ardine.storyapp.data.response.ListStoryItem
 import com.ardine.storyapp.data.response.LoginResponse
 import com.ardine.storyapp.data.response.RegisterResponse
 import com.ardine.storyapp.data.response.StoryResponse
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MediaType.Companion.toMediaType
@@ -26,7 +27,7 @@ import java.io.File
 
 class Repository private constructor(
     private val apiService: ApiService,
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
 ) {
     fun login(email: String, password: String) : LiveData<ResultState<LoginResponse>> = liveData {
         emit(ResultState.Loading)
@@ -149,13 +150,32 @@ class Repository private constructor(
         }
     }
 
+    fun uploadImageWithLocation(token: String, imageFile: File, description: String, latLng: LatLng) = liveData {
+        emit(ResultState.Loading)
+        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "photo",
+            imageFile.name,
+            requestImageFile
+        )
+        try {
+            val response = apiService.uploadImageWithLocation("Bearer $token", multipartBody, requestBody, latLng)
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, FileUploadResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: Repository? = null
 
         fun getInstance(
             apiService: ApiService,
-            userPreference: UserPreference
+            userPreference: UserPreference,
         ): Repository =
             instance ?: synchronized(this) {
                 instance ?: Repository(apiService, userPreference)
