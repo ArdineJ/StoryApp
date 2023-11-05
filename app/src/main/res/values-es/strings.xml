@@ -47,5 +47,6 @@
 
     <string name="include_gps_location">Inclusief GPS-locatie</string>
     <string name="failed_to_get_location">Locatie ophalen is mislukt</string>
-
+    <string name="map_style_parsing_failed">Kaartstijl kon niet worden geparseerd</string>
+    <string name="can_t_find_map_style">Kaartstijl kan niet worden gevonden</string>
 </resources>

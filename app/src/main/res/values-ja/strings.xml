@@ -47,5 +47,7 @@
 
     <string name="include_gps_location">GPS位置情報を含める</string>
     <string name="failed_to_get_location">位置情報の取得に失敗しました</string>
+    <string name="map_style_parsing_failed">マップスタイルの解析に失敗しました</string>
+    <string name="can_t_find_map_style">マップスタイルが見つかりません</string>
 
 </resources>

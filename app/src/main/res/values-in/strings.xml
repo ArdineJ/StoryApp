@@ -46,4 +46,7 @@
     <string name="an_error_occurred_please_try_again">Terjadi kesalahan. Silakan coba lagi.</string>
     <string name="include_gps_location">Sertakan Lokasi GPS</string>
     <string name="failed_to_get_location">Gagal mendapatkan Lokasi</string>
+    <string name="map_style_parsing_failed">Penguraian gaya peta gagal</string>
+    <string name="can_t_find_map_style">Tidak dapat menemukan gaya peta</string>
+
 </resources>

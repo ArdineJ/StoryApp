@@ -115,27 +115,27 @@
   - [x] Ensure that stories are loaded and displayed as expected. 
 
 ## Make Testing
-- [ ] Implement unit tests for functions in the ViewModel that retrieve Paging data.
-  - [ ] Test scenarios for successful data loading.
-    - [ ] Ensure data is not null.
-    - [ ] Verify that the data count matches expectations.
-    - [ ] Confirm that the first returned data is correct.
-  - [ ] Test scenarios for no story data.
-    - [ ] Ensure that the returned data count is zero.
+- [x] Implement unit tests for functions in the ViewModel that retrieve Paging data.
+  - [x] Test scenarios for successful data loading.
+    - [x] Ensure data is not null.
+    - [x] Verify that the data count matches expectations.
+    - [x] Confirm that the first returned data is correct.
+  - [x] Test scenarios for no story data.
+    - [x] Ensure that the returned data count is zero.
 
 # Saran Submission 2
-- [] Ensure clean code formatting.
-  - [] Remove unused comments and code.
-  - [] Maintain proper code indentation.
-  - [] Remove unused imports.
-- [ ] Provide information during API interactions:
-  - [ ] Loading indicator while fetching data.
-  - [ ] Error information when requests fail.
-  - [ ] Informative message when no data is available.
+- [x] Ensure clean code formatting.
+  - [x] Remove unused comments and code.
+  - [x] Maintain proper code indentation.
+  - [x] Remove unused imports.
+- [x] Provide information during API interactions:
+  - [x] Loading indicator while fetching data.
+  - [x] Error information when requests fail.
+  - [x] Informative message when no data is available.
 - [x] Use a custom map style for Google Maps.
 - [ ] Use Paging 3 with RemoteMediator
-- [x] Add an optional feature to input the current GPS location using a checkbox or switch when adding a story.
-- [ ] Implement Android Architecture Components (at least ViewModel and LiveData) correctly on all pages containing business logic.
-- [ ] Implement UI testing and idling resources for one of the following scenarios:
-  - [ ] Ensure the login and logout processes are working as expected.
+- [] Add an optional feature to input the current GPS location using a checkbox or switch when adding a story.
+- [x] Implement Android Architecture Components (at least ViewModel and LiveData) correctly on all pages containing business logic.
+- [x] Implement UI testing and idling resources for one of the following scenarios:
+  - [x] Ensure the **login** and logout processes are working as expected.
   - [ ] Ensure the story addition process functions correctly.

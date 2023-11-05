@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -65,12 +64,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val success =
                 mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
             if (!success) {
-                Log.e(TAG, "Style parsing failed.")
+                Toast.makeText(this,
+                    getString(R.string.map_style_parsing_failed), Toast.LENGTH_SHORT).show()
             }
         } catch (exception: Resources.NotFoundException) {
-            Log.e(TAG, "Can't find style. Error: ", exception)
+            Toast.makeText(this, getString(R.string.can_t_find_map_style), Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun addManyMarker(token: String) {
         viewModel.getStoriesWithLocation(token).observe(this@MapsActivity){ result ->
@@ -163,7 +164,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     companion object{
-        private const val TAG = "MapsActivity"
         const val EXTRA_TOKEN = "extra_token"
     }
 }

@@ -46,4 +46,6 @@
     <string name="an_error_occurred_please_try_again">An error occurred. Please try again.</string>
     <string name="include_gps_location">Include GPS Location</string>
     <string name="failed_to_get_location">Failed to get Location</string>
+    <string name="map_style_parsing_failed">Map style parsing failed</string>
+    <string name="can_t_find_map_style">Can\'t find map style</string>
 </resources>

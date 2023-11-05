@@ -46,5 +46,6 @@
     <string name="an_error_occurred_please_try_again">Er is een fout opgetreden. Probeer het opnieuw.</string>
     <string name="include_gps_location">Incluir Ubicación GPS</string>
     <string name="failed_to_get_location">Fallo al obtener la ubicación</string>
-
+    <string name="map_style_parsing_failed">Fallo en el análisis del estilo del mapa</string>
+    <string name="can_t_find_map_style">No se puede encontrar el estilo del mapa</string>
 </resources>
