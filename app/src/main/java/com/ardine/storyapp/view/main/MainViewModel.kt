@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getStory(token: String) = repository.getStory(token)
 
-    fun pagingStoryList(token: String): LiveData<PagingData<ListStoryItem>> = repository.getPagingStory(token).cachedIn(viewModelScope)
+    fun pagingStoryList(token:String): LiveData<PagingData<ListStoryItem>> = repository.pagingStoryList(token).cachedIn(viewModelScope)
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()

@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
-    private var token : String? = null
+    private lateinit var token : String
+    private lateinit var adapter: StoryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        viewModel.getStory(token).observe(this@MainActivity){result ->
+        viewModel.getStory(this.token).observe(this@MainActivity){ result ->
             if (result != null){
                 when (result) {
                     ResultState.Loading -> {
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         binding.loadingProgressBar.isVisible = false
                         if (result.data.listStory.isNotEmpty()){
-                            val adapter = StoryListAdapter(token)
+                            adapter = StoryListAdapter(token)
                             binding.apply {
                                 rvStory.layoutManager = LinearLayoutManager(this@MainActivity)
                                 rvStory.adapter = adapter.withLoadStateFooter(
@@ -113,7 +114,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mapsButton ->{
-                token?.let { tokenValue ->
+                token.let { tokenValue ->
                     val intent = Intent(this, MapsActivity::class.java)
                     intent.putExtra(MapsActivity.EXTRA_TOKEN, tokenValue)
                     startActivity(intent)
